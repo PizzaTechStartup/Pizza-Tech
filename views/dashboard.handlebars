@@ -1,0 +1,54 @@
+<div class="flex h-screen bg-primary">
+  <!-- Sidebar -->
+  <div class="text-white w-1/6 p-5 flex flex-col">
+    <div class="flex items-center space-x-3 mb-8">
+      <img src="../public/img/uma-imagem-cinza-de-uma-pessoa-com-um-fundo-cinzento_1197690-22-removebg-preview.png" alt="Admin Avatar" class="w-12 h-12 rounded-full">
+      <h1 class="text-xl font-bold">Admin</h1>
+    </div>
+    <ul class="space-y-4">
+      <li><a href="/admin/perfil" class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Perfil</a></li>
+      <li><a href="/admin/produtos" class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Produtos</a></li>
+      <li><a href="/admin/produto/cadastrar" class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Cadastrar Produto</a></li>
+      <li><a href="/admin/pedidos" class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Pedidos</a></li>
+    </ul>
+    <a href="/logout" class="mt-auto text-sm font-medium hover:text-gray-300">Sair</a>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <div class="flex-1 bg-branco p-6 rounded-l-2xl">
+    <!-- Bem-vindo -->
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+      <h2 class="text-2xl font-bold text-gray-700">Bem-vindo, Admin!</h2>
+      <p class="text-gray-500">Resumo do sistema</p>
+    </div>
+
+    <!-- Cards Estatísticos -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+        <h3 class="text-lg font-bold text-pink-700">+6.9K</h3>
+        <p class="text-gray-500">Favoritos</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+        <h3 class="text-lg font-bold text-blue-700">+2.4K</h3>
+        <p class="text-gray-500">Adicionados ao carrinho</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow-lg text-center">
+        <h3 class="text-lg font-bold text-green-700">+1.0K</h3>
+        <p class="text-gray-500">Pedidos</p>
+      </div>
+    </div>
+
+    <!-- Pedidos Recentes -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-bold text-yellow-700 mb-4">Pedidos Recentes</h3>
+      <ul>
+        {{#each pedidos}}
+        <li class="flex justify-between p-2 bg-branco rounded-lg mb-2 shadow-sm">
+          <span class="text-gray-600">{{cliente}}</span>
+          <span class="text-gray-400">{{data}}</span>
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>

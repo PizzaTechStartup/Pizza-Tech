@@ -1,0 +1,78 @@
+<div class="mx-auto p-6 flex">
+    <div  class="w-16 bg-primary min-h-screen shadow-lg rounded-lg py-6 px-4 flex md:flex-col flex-col gap-6 hover:w-48 duration-500 transition-all ease-in-out group">
+        <a href="/" class="flex items-center gap-4">
+            <img src="../public/img/icons/home.svg" alt="Home" class="w-7">
+            <h2 class="font-semibold text-white opacity-0 whitespace-nowrap transition-opacity duration-500 group-hover:opacity-100">
+                Início
+            </h2>
+        </a>
+        <a href="/cardapio" class="flex items-center gap-4">
+            <img src="../public/img/icons/menu.svg" alt="Menu" class="w-7">
+            <h2 class="font-semibold text-white opacity-0 whitespace-nowrap transition-opacity duration-500 group-hover:opacity-100">
+                Cardápio
+            </h2>
+        </a>
+        <a href="/carrinho" class="flex items-center gap-4">
+            <img src="../public/img/icons/carrinho.svg" alt="Carrinho" class="w-7">
+            <h2 class="font-semibold text-white opacity-0 whitespace-nowrap transition-opacity duration-500 group-hover:opacity-100">
+                Carrinho
+            </h2>
+        </a>
+        <a href="/favoritos" class="flex items-center gap-4">
+            <img src="../public/img/icons/favorito.svg" alt="Favoritos" class="w-7">
+            <h2 class="font-semibold text-white opacity-0 whitespace-nowrap transition-opacity duration-500 group-hover:opacity-100">
+                Favoritos
+            </h2>
+        </a>
+    </div>
+
+
+    <div class="mx-auto" style="min-width: 80%;">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold text-primary">Perfil do Cliente</h2>
+            <a href="/editar-perfil" class="bg-primary text-white px-4 py-2 rounded hover:bg-secundary">
+                Editar Perfil
+            </a>
+        </div>
+
+        <div>
+            <!-- Informações do Cliente -->
+            <div class="bg-white p-6 rounded shadow mb-6">
+                <h3 class="text-2xl font-bold mb-2">{{cliente.nome}}</h3>
+                <p class="text-gray-600">Email: {{cliente.email}}</p>
+            </div>
+
+            <!-- Histórico de Compras -->
+            <div>
+                <div class="justify-between flex">
+                    <h3 class="text-xl font-bold text-primary mb-4">Histórico de Compras</h3>
+                    <a href="/pedidos">
+                        <button class="">
+                            Mais detalhes
+                        </button>
+                    </a>
+                </div>
+                
+                {{#if historico.length}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {{#each historico}}
+                    <div class="bg-white p-4 rounded shadow">
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">Pedido #{{id}}</h4>
+                        <ul class="text-gray-600 mb-2">
+                            {{#each itens}}
+                            <li>{{this.produto.nome}} - {{this.quantidade}}x - R${{this.produto.valor}}</li>
+                            {{/each}}
+                        </ul>
+                        <p c><strong>Status:</strong><span class="{{#if (eq status 'entregue')}}text-green-500{{else if (eq status 'a caminho')}}text-yellow-500{{else}}text-red-500{{/if}}"> {{status}}</span></p>
+                        <p><strong>Total:</strong> R${{total}}</p>
+                        <p><strong>Data:</strong> {{data}}</p>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="text-gray-600">Você ainda não fez nenhum pedido.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

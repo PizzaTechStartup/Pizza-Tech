@@ -1,0 +1,136 @@
+<div class="bg-gray-100 font-sans">
+  <!-- Container Principal -->
+  <div class="mb-4">
+        <a href="/carrinho"><h2 class="text-lg items-center font-semibold text-gray-800 flex"><i><img src="../public/img/seta.svg" alt=""></i>Voltar</h2></a>
+    </div>
+  <div class="min-h-screen flex items-center justify-center px-4">
+    <div class="bg-white shadow-lg rounded-lg w-full max-w-md p-6">
+      <!-- Título -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Pagamento</h2>
+
+      <!-- Resumo do Pedido -->
+      <div class="bg-gray-50 p-4 rounded-lg mb-6">
+        <h3 class="text-lg font-semibold text-gray-700">Resumo do Pedido</h3>
+        <ul class="mt-4 space-y-2">
+          {{#each itens}}
+          <li class="flex justify-between text-gray-600">
+            <span>{{produto.nome}}</span>
+            <span>R${{produto.valor}}</span>
+          </li>
+          {{/each}}
+        </ul>
+        <hr class="my-4">
+        <div class="flex justify-between text-gray-800 font-semibold">
+          <span>Total:</span>
+          <span>R$ {{total}}</span>
+        </div>
+      </div>
+
+      <!-- Formulário de Pagamento -->
+      <form action="/pagamento" method="POST" class="space-y-4" id="formPagamento">
+        <!-- Métodos de Pagamento -->
+        <div>
+          <label class="block text-gray-700 font-medium mb-1">Método de Pagamento</label>
+          <select id="metodoPagamento" name="metodo_pagamento" required class="w-full p-2 border rounded-lg">
+            <option value="cartão">Cartão de Crédito</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="transferência">Transferência Bancária</option>
+          </select>
+        </div>
+
+        <!-- Informações do Cartão -->
+        <div class="space-y-2" id="cartao-info">
+          <label class="block text-gray-700 font-medium">Número do Cartão</label>
+          <input type="text" name="numero_cartao" placeholder="**** **** **** ****" class="w-full p-2 border rounded-lg">
+
+          <label class="block text-gray-700 font-medium">Validade</label>
+          <input type="text" name="validade" placeholder="MM/AA" class="w-full p-2 border rounded-lg">
+
+          <label class="block text-gray-700 font-medium">CVV</label>
+          <input type="text" name="cvv" placeholder="123" class="w-full p-2 border rounded-lg">
+        </div>
+
+        <!-- Observações -->
+        <div>
+          <label class="block text-gray-700 font-medium">Observações</label>
+          <textarea name="observacoes" placeholder="Ex.: Sem cebola" class="w-full p-2 border rounded-lg"></textarea>
+        </div>
+
+        <!-- Endereço de Entrega -->
+        <div>
+          <label class="block text-gray-700 font-medium">Endereço de Entrega</label>
+          <textarea name="endereco_entrega" required placeholder="Ex.: Rua, número, bairro" class="w-full p-2 border rounded-lg"></textarea>
+        </div>
+
+        <!-- Botão de Confirmação -->
+        <button type="submit" id="btnConfirmar" class="w-full bg-primary text-white p-3 rounded-lg hover:bg-secundary transition">
+          Confirmar Pagamento
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('metodoPagamento').addEventListener('change', (e) => {
+    const cartaoInfo = document.getElementById('cartao-info');
+    if (e.target.value === 'cartão') {
+      cartaoInfo.style.display = 'block'; // Exibe campos de cartão
+    } else {
+      cartaoInfo.style.display = 'none'; // Oculta campos de cartão
+    }
+  });
+
+  document.getElementById('formPagamento').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = document.getElementById('btnConfirmar');
+    btn.disabled = true;
+
+    const metodoPagamento = document.getElementById('metodoPagamento').value;
+    const observacoes = document.querySelector('textarea[name="observacoes"]').value;
+    const enderecoEntrega = document.querySelector('textarea[name="endereco_entrega"]').value;
+    const numeroCartao = document.querySelector('input[name="numero_cartao"]').value;
+    const validade = document.querySelector('input[name="validade"]').value;
+    const cvv = document.querySelector('input[name="cvv"]').value;
+
+    const body = {
+      metodo_pagamento: metodoPagamento,
+      observacoes,
+      endereco_entrega: enderecoEntrega,
+    };
+
+    // Adiciona informações do cartão apenas se o método for "cartão"
+    if (metodoPagamento === 'cartão') {
+      body.numero_cartao = numeroCartao;
+      body.validade = validade;
+      body.cvv = cvv;
+    }
+
+    try {
+      const response = await fetch('/pagamento', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(data.message);
+        window.location.href = '/pedido/sucesso';
+      } else {
+        const error = await response.json();
+        alert('Erro: ' + error.error);
+      }
+    } catch (error) {
+      alert('Erro ao processar o pagamento: ' + error.message);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // Exibe ou oculta os campos de cartão ao carregar a página
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('cartao-info').style.display = 'none';
+  });
+</script>

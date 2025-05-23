@@ -1,0 +1,88 @@
+<div class="min-h-screen w-full bg-primary flex">
+    <div class="text-white w-1/6 p-5 flex flex-col">
+        <div class="flex items-center space-x-3 mb-8">
+            <img src="../public/img/uma-imagem-cinza-de-uma-pessoa-com-um-fundo-cinzento_1197690-22-removebg-preview.png"
+                alt="Admin Avatar" class="w-12 h-12 rounded-full">
+            <h1 class="text-xl font-bold">Admin</h1>
+        </div>
+        <ul class="space-y-4">
+            <li><a href="/admin/perfil"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Perfil</a></li>
+            <li><a href="/admin/produtos"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Produtos</a></li>
+            <li><a href="/admin/produto/cadastrar"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Cadastrar
+                    Produto</a></li>
+            <li><a href="/admin/pedidos"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Pedidos</a></li>
+        </ul>
+        <a href="/logout" class="mt-auto text-sm font-medium hover:text-gray-300">Sair</a>
+    </div>
+    
+
+<div class="w-5/6 min-h-screen p-6 bg-branco flex flex-col rounded-l-xl items-center">
+    <div class="text-center">
+        <h1 class="text-2xl font-bold text-primary">Produtos cadastrados:</h1>
+    </div>
+    <h2 class="font-semibold">Pizzas</h2>
+    <div class="flex justify-around items-center flex-wrap gap-8 p-8 w-3/4 mx-auto">
+
+        {{#each produtos}}
+        {{#if (eq this.tipo "Pizzas")}}
+        <div class="flex justify-center items-center flex-col p-3 w-56 min-h-64 rounded-xl bg-gray-100 shadow-lg">
+            <div>
+                <img src="/public/uploads/{{this.nome}}.png" class="img-fluid" alt="{{this.nome}}" width="100px">
+            </div>
+
+            <div class="text-black text-center">
+                <h3 class="font-semibold">{{this.nome}}</h3>
+                <p class="text-red-600 font-medium">{{this.categoria}}</p>
+                <p class="font-medium">Valor: R${{this.valor}}</p>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    <h2 class="font-semibold">Bebidas</h2>
+    <div class="flex justify-around items-center flex-wrap gap-8 p-8 w-3/4 mx-auto">
+
+        {{#each produtos}}
+        {{#if (eq this.tipo "Bebidas")}}
+        <div class="flex justify-center items-center flex-col p-3 w-56 min-h-64 rounded-xl bg-gray-100 shadow-lg">
+            <div>
+                <img src="/public/uploads/{{this.nome}}.png" class="img-fluid" alt="{{this.nome}}" width="100px">
+            </div>
+
+            <div class="text-black text-center">
+                <h3 class="font-semibold">{{this.nome}}</h3>
+                <p class="text-red-600 font-medium">{{this.categoria}}</p>
+                <p class="font-medium">Valor: R${{this.valor}}</p>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    <h2 class="font-semibold">Outros</h2>
+    <div class="flex justify-around items-center flex-wrap gap-8 p-8 w-3/4 mx-auto">
+
+        {{#each produtos}}
+        {{#if (eq this.tipo "Outro")}}
+        <div class="flex justify-center items-center flex-col p-3 w-56 min-h-64 rounded-xl bg-gray-100 shadow-lg">
+            <div>
+                <img src="/public/uploads/{{this.nome}}.png" class="img-fluid" alt="{{this.nome}}" width="100px">
+            </div>
+
+            <div class="text-black text-center">
+                <h3 class="font-semibold">{{this.nome}}</h3>
+                <p class="text-red-600 font-medium">{{this.categoria}}</p>
+                <p class="font-medium">Valor: R${{this.valor}}</p>
+            </div>
+        </div>
+        {{/if}}
+        {{/each}}
+    </div>
+    <button class="bg-primary p-3 font-semibold rounded-full shadow-lg"><a class="text-white"
+            href="/admin/produto/cadastrar">Cadastrar novo
+            produto</a></button>
+</div>
+</div>

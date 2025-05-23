@@ -1,0 +1,51 @@
+{{! Extende o layout base (main.handlebars) }}
+<div class="p-8">
+    <div class="mb-4">
+        <a href="/admin/perfil"><h2 class="text-lg items-center font-semibold text-gray-800 flex"><i><img src="../public/img/seta.svg" alt=""></i>Voltar</h2></a>
+    </div>
+    <h2 class="text-4xl font-bold text-center text-gray-800 mb-12">Lista de Pedidos</h2>
+
+    {{#if pedidos.length}}
+    <div class="overflow-x-auto bg-white rounded-xl shadow-xl border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-300">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">ID</th>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">Cliente</th>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">Status</th>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">Total</th>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">Data/Hora
+                    </th>
+                    <th class="px-8 py-4 text-left text-sm font-bold uppercase tracking-wide text-gray-700">Detalhes
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {{#each pedidos}}
+                <tr class="hover:bg-gray-50 transition duration-150 ease-in-out">
+                    <td class="px-8 py-5 whitespace-nowrap text-sm font-medium text-gray-900">{{id}}</td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm text-gray-600">{{cliente.nome}}</td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm text-gray-600">
+                        <span
+                            class="px-3 py-1 inline-block rounded-full text-white {{#if (eq status 'entregue')}}bg-green-500{{else if (eq status 'a caminho')}}bg-yellow-500{{else}}bg-red-500{{/if}}">
+                            {{status}}
+                        </span>
+                    </td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm text-gray-600">R$ {{total}}</td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm text-gray-600">{{data_hora}}</td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm text-gray-600">
+                        {{formatPayment metodo_pagamento}}
+                    </td>
+                    <td class="px-8 py-5 whitespace-nowrap text-sm">
+                        <a href="/admin/pedidos/{{id}}"
+                            class="text-indigo-500 hover:text-indigo-700 font-medium transition">Ver detalhes</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <p class="text-center text-gray-500 text-lg mt-8">Nenhum pedido encontrado.</p>
+    {{/if}}
+</div>

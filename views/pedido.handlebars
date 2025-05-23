@@ -1,0 +1,52 @@
+<div class="min-h-screen bg-gray-100 flex flex-col items-center py-10">
+    <div class="mb-4">
+        <a href="/admin/pedidos"><h2 class="text-lg items-center font-semibold text-gray-800 flex"><i><img src="../public/img/seta.svg" alt=""></i>Voltar</h2></a>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg p-6 max-w-3xl w-full">
+        <h1 class="text-2xl font-semibold text-primary mb-4">Detalhes do Pedido</h1>
+        
+        <!-- Informações do Cliente -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-600">Cliente</h2>
+            <p class="text-gray-700">Nome: {{pedido.cliente.nome}}</p>
+            <p class="text-gray-700">Email: {{pedido.cliente.email}}</p>
+        </div>
+
+        <!-- Informações do Pedido -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-600">Pedido</h2>
+            <p class="text-gray-700">Data: {{pedido.data_hora}}</p>
+            <p class="text-gray-700">Total: R$ {{pedido.total}}</p>
+            <p class="text-gray-700">Status: <span class="font-bold">{{pedido.status}}</span></p>
+        </div>
+
+        <!-- Itens do Pedido -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-600">Itens</h2>
+            <ul class="divide-y divide-gray-200">
+                {{#each pedido.pedidoItens}}
+                <li class="py-4 flex justify-between items-center">
+                    <div>
+                        <p class="font-medium text-gray-700">{{produto.nome}}</p>
+                        <p class="text-sm text-gray-500">Quantidade: {{quantidade}}</p>
+                    </div>
+                    <p class="text-gray-700">R$ {{valor_unitario}}</p>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <!-- Formulário para Atualizar Status -->
+        <form action="/admin/pedidos/{{pedido.id}}/status" method="POST" class="space-y-4">
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700">Alterar Status</label>
+                <select name="status" id="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="em preparo" {{#if (eq pedido.status "em preparo")}}selected{{/if}}>Em Preparo</option>
+                    <option value="a caminho" {{#if (eq pedido.status "a caminho")}}selected{{/if}}>A Caminho</option>
+                    <option value="entregue" {{#if (eq pedido.status "entregue")}}selected{{/if}}>Entregue</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-secundary transition">Atualizar</button>
+        </form>
+    </div>
+</div>

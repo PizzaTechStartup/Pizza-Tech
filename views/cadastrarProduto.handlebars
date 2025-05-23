@@ -1,0 +1,49 @@
+<div class="min-h-screen w-full bg-primary flex">
+    <div class="text-white w-1/6 p-5 flex flex-col">
+        <div class="flex items-center space-x-3 mb-8">
+            <img src="../public/img/uma-imagem-cinza-de-uma-pessoa-com-um-fundo-cinzento_1197690-22-removebg-preview.png"
+                alt="Admin Avatar" class="w-12 h-12 rounded-full">
+            <h1 class="text-xl font-bold">Admin</h1>
+        </div>
+        <ul class="space-y-4">
+            <li><a href="/admin/perfil"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Perfil</a></li>
+            <li><a href="/admin/produtos"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Produtos</a></li>
+            <li><a href="/admin/produto/cadastrar"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Cadastrar
+                    Produto</a></li>
+            <li><a href="/admin/pedidos"
+                    class="bg-secundary p-2 rounded-lg block text-md font-medium hover:text-gray-300">Pedidos</a></li>
+        </ul>
+        <a href="/logout" class="mt-auto text-sm font-medium hover:text-gray-300">Sair</a>
+    </div>
+
+    <div class="w-5/6 flex justify-center items-center bg-branco rounded-l-xl">
+        <div class="flex justify-center items-center bg-branco shadow-lg p-8 rounded-lg">
+            <div class="">
+                <h1>
+                    Cadastrar produto
+                </h1>
+                <form action="/admin/produto/cadastrar" method="post" enctype="multipart/form-data"
+                    class="flex flex-col w-full max-w-md justify-center items-center">
+                    <input type="text" name="nome" class="w-full mt-2 p-3 rounded-lg bg-gray-100"
+                        placeholder="Nome do produto">
+                    <input type="categoria" name="categoria" class="w-full mt-2 p-3 rounded-lg bg-gray-100"
+                        placeholder="Categoria do produto">
+                    <input type="number" name="valor" class="w-full mt-2 p-3 rounded-lg bg-gray-100"
+                        placeholder="Valor do produto">
+                    <input type="text" name="tipo" class="w-full mt-2 p-3 rounded-lg bg-gray-100"
+                        placeholder="Tipo do produto">
+                    <input type="file" name="imagem" class="w-full mt-2 p-3 file:mr-4 file:py-2 file:px-4
+                                                        file:rounded-full file:border-0
+                                                        file:text-sm file:font-semibold
+                                                        file:bg-orange-50 file:text-primary
+                                                        hover:file:bg-orange-100">
+                    <input type="submit" class="gb bg-primary p-3 rounded-full text-white" value="Cadastrar"
+                        placeholder="Cadastrar">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="bg-gray-100 min-h-screen p-4">
+    <div class="mb-4">
+        <a href="/perfil"><h2 class="text-lg items-center font-semibold text-gray-800 flex"><i><img src="../public/img/seta.svg" alt=""></i>Voltar</h2></a>
+    </div>
+    <h1 class="text-2xl font-bold text-primary mb-6">Seus Pedidos</h1>
+    <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {{#each pedidos}}
+        <div class="bg-white shadow-md hover:shadow-lg rounded-lg p-4 transition">
+            <h2 class="text-lg font-semibold text-primary">Pedido #{{id}}</h2>
+            <p class="text-gray-600">Data: {{data_hora}}</p>
+            <p class="text-gray-600">Status: 
+                <span class="font-bold {{#if (eq status 'entregue')}}text-green-500{{else if (eq status 'a caminho')}}text-yellow-500{{else}}text-red-500{{/if}}">{{status}}</span>
+            </p>
+            <p class="text-gray-600">Total: R$ {{total}}</p>
+            <a href="/pedidos/{{id}}" class="mt-4 inline-block bg-primary text-white py-2 px-4 shadow-sm hover:shadow-md rounded hover:bg-secundary transition">Ver Detalhes</a>
+        </div>
+        {{/each}}
+    </div>
+</div>

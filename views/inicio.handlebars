@@ -1,0 +1,106 @@
+<div>
+    <!-- Cabeçalho -->
+    <header style="padding: 1rem 0; position: relative; top: 0; z-index: 1000;">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+            <div class="logo" style="">
+                <img src="../public/img/logo.png" alt="Logo Pizza Tech" style="width: 75px;">
+            </div>
+            <nav style=" display: flex; justify-content: center; align-items: center; ">
+                <ul
+                    style="list-style: none; display: flex; justify-content: center; align-items: center; gap: 20px; margin: 0;">
+                    <li><a href="/"
+                            style="text-decoration: none; color: #D66E3E; font-weight: bold; transition: color 0.3s;">Início</a>
+                    </li>
+                    <li><a href="/cardapio"
+                            style="text-decoration: none; color: #D66E3E; font-weight: bold; transition: color 0.3s;">Cardápio</a>
+                    </li>
+                    <li><a href="/nos"
+                            style="text-decoration: none; color: #D66E3E; font-weight: bold; transition: color 0.3s;">Sobre
+                            Nós</a></li>
+                </ul>
+            </nav>
+            <div>
+                <a href="/login"><button class="login-button"
+                        style="background-color: #D66E3E; color: #fff; font-size: medium; padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; transition: background-color 0.3s;">Login</button></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero"
+        style="display: flex; justify-content: space-between; align-items: center; padding: 4rem 15%; height: 80vh; color: #333;">
+        <div style="flex: 1; text-align: left;">
+            <h2 style="font-size: 3rem; font-weight: bold; font-family: 'Rubik', sans-serif;">Seja bem-vindo ao <span
+                    style="color: #D66E3E;">Pizza Tech</span></h2>
+            <p style="margin-bottom: 1.5rem;">Navegue em nosso cardápio online, faça seu pedido de maneira rápida e
+                prática, e receba em sua casa a pizza perfeita para qualquer momento.</p>
+            <button
+                style="background-color: #D66E3E; color: #fff; padding: 10px 20px; border: none; border-radius: 19px;">Peça
+                agora!</button>
+        </div>
+        <div>
+            <img src="../public/landing page/delivery.png" alt="Pizza"
+                style="max-width: 100%; width: 450px; border-radius: 10px;">
+        </div>
+    </section>
+    <div class="right-image"
+        style="position: absolute; top: 30%; right: 3px; transform: translateY(-50%); z-index: 10;">
+        <img src="../public/landing page/ingredientes.png" style="max-width: 400px; height: auto;">
+    </div>
+
+    <!-- Cardápio -->
+    <section class="bg-orange-100" id="cardapio" style="padding: 2rem;">
+        <h2
+            style="text-align: center; color: #D66E3E; margin-bottom: 1rem; font-size: 1.5rem; font-weight: 500; margin-bottom: 24px;">
+            Pizzas Populares</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;">
+            {{#each (slice (filter produtos "tipo" "Pizzas") 0 3)}}
+            {{#if (eq this.tipo "Pizzas")}}
+            <div
+                style="background-color: #fff; padding: 2rem; border-radius: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <img src="../public/uploads/{{this.nome}}.png" alt="{{this.nome}}"
+                    style="max-width: 150px; border-radius: 10px;">
+                <h3 style="font-weight: 500;">{{this.nome}}</h3>
+                <p style="margin-top: 5x;">R$ {{this.valor}}</p>
+                <button
+                    style="background-color: #D66E3E; color: white; padding: 3px; padding-top: 6px; margin-top: 10px; border: none; border-radius: 50px; align-items: center; justify-content: center;"><img
+                        src="../public/img/icons/favorito.svg" alt=""></button>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </section>
+
+    <!-- Nossos Serviços -->
+    <section id="services" style="padding: 2rem; background-color: #f8f1e7;">
+        <h2 style="text-align: center; color: #D66E3E; font-size: 1.5rem; font-weight: 500; margin-bottom: 24px;">Nossos
+            Serviços</h2>
+        <div
+            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; justify-items: center; align-items: center; text-align: center; max-width: 1200px; margin: 0 auto;">
+            <div
+                style="background-color: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); justify-items: center; align-items: center;">
+                <img src="../public/img/icons/fast.svg" alt="">
+                <h3>Entrega Rápida</h3>
+                <p>Receba sua pizza em até 30 minutos.</p>
+            </div>
+            <div
+                style="background-color: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); justify-items: center; align-items: center;">
+                <img src="../public/img/icons/food.svg" alt="">
+                <h3>Ingredientes Frescos</h3>
+                <p>Garantimos qualidade e sabor.</p>
+            </div>
+            <div
+                style="background-color: #fff; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); justify-items: center; align-items: center;">
+                <img src="../public/img/icons/menu_book.svg" alt="">
+                <h3>Cardápio Variado</h3>
+                <p>Opções para todos os gostos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer style="background-color: #D66E3E; color: #fff; text-align: center; padding: 1rem;">
+        <p>&copy; 2024 Pizza Tech - Todos os direitos reservados</p>
+    </footer>
+</div>

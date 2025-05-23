@@ -1,0 +1,66 @@
+<div class="max-w-5xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
+    <div class="mb-4">
+        <a href="/cardapio"><h2 class="text-lg items-center font-semibold text-gray-800 flex"><i><img src="../public/img/seta.svg" alt=""></i>Continue Comprando</h2></a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-lg rounded-md">
+            <thead class="bg-primary text-white uppercase text-sm">
+                <tr>
+                    <th class="py-3 px-6 text-left">Pizza</th>
+                    <th class="py-3 px-6 text-left">Tamanho</th>
+                    <th class="py-3 px-6 text-left">Quantidade</th>
+                    <th class="py-3 px-6 text-left">Preço</th>
+                    <th class="py-3 px-6 text-left">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each pedido_items}}
+                <tr class="border-b hover:bg-gray-100">
+                    <td class="py-4 px-6">{{this.produto.nome}}</td>
+                    <td class="py-4 px-6">{{this.tamanho}}</td>
+                    <td class="py-4 px-6">
+                        <form action="/carrinho/update" method="POST" class="flex items-center space-x-2">
+                            <input type="hidden" name="pedido_id" value="{{this.id}}">
+                            <input type="number" name="quantidade" value="{{this.quantidade}}" min="1" 
+                                class="w-16 border border-gray-300 rounded-md text-center">
+                            <button type="submit" 
+                                class="ml-2 bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600">
+                                Atualizar
+                            </button>
+                        </form>
+                    </td>
+                    <td class="py-4 px-6">R${{this.produto.valor}}</td>
+                    <td class="py-4 px-6">
+                        <form action="/carrinho/remove" method="POST">
+                            <input type="hidden" name="pedido_id" value="{{this.id}}">
+                            <button type="submit" 
+                                class="bg-red-500 text-white px-3 py-1 rounded-md hover:bg-red-600">
+                                Remover
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Total e Botão para Pagamento -->
+    <div class="mt-6 flex flex-col sm:flex-row sm:justify-between items-center bg-gray-100 p-4 rounded-md shadow">
+        <div class="mb-4 sm:mb-0">
+            <p class="text-lg font-semibold text-gray-700">Total do Pedido: 
+                <span class="text-orange-500">R${{total}}</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Botão para Finalizar Compra -->
+    <div class="mt-4">
+        <form action="/pagamento" method="get">
+            <button type="submit" 
+                class="w-full bg-primary text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-orange-600">
+                Finalizar Compra
+            </button>
+        </form>
+    </div>
+</div>

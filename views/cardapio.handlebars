@@ -1,0 +1,140 @@
+<div class="flex justify-between px-24 py-2  gap-32 mx-auto items-center " id="Header">
+    <div class="" id="Logo">
+        <img src="public/img/logo.png" alt="Logo" class="w-20 rounded-full">
+    </div>
+    <div class="hidden text-lg md:flex" id="Menu">
+        <ul class="flex gap-12">
+            <li class="text-black font-semibold"><a href="/">Início</a></li>
+            <li class="text-black font-semibold"><a href="/nos">Sobre nós</a></li>
+            <li class="text-black font-semibold"><a href="/cardapio">Cardapio</a></li>
+        </ul>
+    </div>
+    <div class="m-0 p-0">
+        <a href="/carrinho"><i
+                class="fa-solid fa-cart-shopping text-lg text-orange-300 border border-2 py-1 px-2 rounded-full border-orange-300"></i></a>
+    </div>
+
+    <div class="flex md:hidden " id="btnMobile">
+        <img src="public/img/menu.svg" class="w-8" alt="Menu SVG">
+    </div>
+
+    <div class="hidden" id="MenuMobile">
+        <ul class="flex gap-12">
+            <li class="text-white font-semibold"><a href="/">Início</a></li>
+            <li class="text-white font-semibold"><a href="/nos">Sobre nós</a></li>
+            <li class="text-white font-semibold"><a href="/cardapio ">Cardapio</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="flex justify-center items-center gap-6 mt-8">
+    <button onclick="filtrarProdutos('Pizzas')"
+        class="bg-primary text-white px-6 py-2 rounded-full hover:bg-orange-600">
+        Pizzas
+    </button>
+    <button onclick="filtrarProdutos('Bebidas')"
+        class="bg-primary text-white px-6 py-2 rounded-full hover:bg-orange-600">
+        Bebidas
+    </button>
+    <button onclick="filtrarProdutos('Outros')"
+        class="bg-primary text-white px-6 py-2 rounded-full hover:bg-orange-600">
+        Outros
+    </button>
+</div>
+
+<!-- Contêiner dos Produtos -->
+<div id="produtosContainer" class="flex justify-center flex-row items-center flex-wrap gap-8 p-8 w-full mx-auto">
+    {{#each produtos}}
+    <div class="produto bg-white p-6 rounded-lg shadow-lg text-center w-64" data-tipo="{{this.tipo}}">
+        <img src="/public/uploads/{{this.nome}}.png" alt="{{this.nome}}"
+            class="w-32 h-32 mx-auto rounded-full object-cover mb-4">
+        <h2 class="text-xl font-bold text-gray-800">{{this.nome}}</h2>
+        <p class="text-sm text-gray-500">{{this.tipo}}</p> <!-- Exibindo o tipo do produto -->
+        <p class="text-lg font-semibold text-orange-500 mt-2">R${{this.valor}}</p>
+        <button onclick="abrirMenuAdd({{this.id}})"
+            class="bg-primary text-white px-4 py-2 rounded-full mt-4 hover:bg-orange-600">
+            Adicionar ao Carrinho
+        </button>
+    </div>
+    {{/each}}
+</div>
+
+
+
+<!-- Modal para personalizar pizza -->
+<div id="menuAdd" class="min-h-fit top-1/2 w-full justify-center items-center absolute hidden" >
+    <div 
+        class="backdrop-blur-md flex text-white rounded-2xl fixed p-8 bg-primary flex-col drop-shadow justify-center items-center">
+        <form class="flex-col flex gap-2" action="/carrinho/add" method="POST">
+            <input type="hidden" name="produto_id" id="produto_id">
+            <div>
+                <label class="text-white" for="tamanho">Tamanho:</label>
+                <select class="text-black" name="tamanho">
+                    <option value="Grande">Pequena</option>
+                    <option value="Grande">Média</option>
+                    <option value="Grande">Grande</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="text-white" for="ingredientes_removidos">Remover Ingredientes:</label>
+                <input class="text-black rounded-2xl px-4" type="text" name="ingredientes_removidos">
+            </div>
+            <div>
+                <label class="text-white" for="ingredientes_adicionados">Adicionar Ingredientes:</label>
+                <input class="text-black rounded-2xl px-4" type="text" name="ingredientes_adicionados">
+            </div>
+            <div>
+                <label class="text-white" for="quantidade">Quantidade:</label>
+                <input class="text-black rounded-2xl px-4" type="number" name="quantidade" min="1" value="1">
+            </div>
+
+
+            <button class="bg-branco rounded-2xl px-2 font-medium text-black" type="submit">Confirmar</button>
+        </form>
+
+        <button class="bg-branco rounded-2xl mt-4 font-medium text-black" onclick="fecharMenuAdd()"><img
+                src="../public/img/fechar-menu.svg" alt=""></button>
+    </div>
+</div>
+
+<script>
+    const menuAdd = document.getElementById('menuAdd');
+
+    function abrirMenuAdd(produtoId) {
+        document.getElementById('produto_id').value = produtoId;
+        menuAdd.style.display = 'flex';
+        menuAdd.classList.remove('translate-x-full', 'opacity-0');
+        menuAdd.classList.add('translate-x-0', 'opacity-100');
+    };
+
+    function fecharMenuAdd() {
+        menuAdd.classList.remove('translate-x-0', 'opacity-100');
+        menuAdd.classList.add('translate-x-full', 'opacity-0');
+        setTimeout(() => {
+            menuAdd.style.display = 'none';
+        }, 300);
+    };
+
+    function filtrarProdutos(tipo) {
+        console.log(`Filtrando por tipo: ${tipo}`);
+        const produtos = document.querySelectorAll('.produto'); // Seleciona todos os produtos
+
+        produtos.forEach(produto => {
+            const tipoProduto = produto.getAttribute('data-tipo'); // Obtém o tipo de cada produto
+            console.log(`Produto: ${produto.innerHTML}, Tipo: ${tipoProduto}`);
+
+            if (tipoProduto === tipo || tipo === 'Todos') {
+                produto.style.display = 'block'; // Exibe o produto
+            } else {
+                produto.style.display = 'none'; // Oculta o produto
+            }
+        });
+    }
+
+    // Exibe todos os produtos inicialmente
+    // document.addEventListener('DOMContentLoaded', () => {
+    //    filtrarProdutos('Todos'); // Exibe todos os produtos na inicialização
+    // }); 
+
+</script>
